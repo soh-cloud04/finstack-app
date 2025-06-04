@@ -1,0 +1,68 @@
+<div class="task-list-container">
+  <div class="header">
+    <h2>SALES LOG</h2>
+    <button class="new-task-button" (click)="openNewTaskModal()">+ New Task</button>
+    <div class="search-container">
+      <input type="text" placeholder="Search" class="search-input">
+      <i class="search-icon"></i> <!-- Placeholder for search icon -->
+    </div>
+  </div>
+
+  <p class="filter-instruction">Use the <i class="filter-icon"></i> icon next to the table titles to apply filters</p>
+
+  <div class="task-table-container">
+    <table class="task-table">
+      <thead>
+        <tr>
+          <th (click)="changeSort('created_date')">Date <i class="filter-icon"></i> <i class="sort-icon"></i></th>
+          <th (click)="changeSort('entity_name')">Entity Name <i class="filter-icon"></i> <i class="sort-icon"></i></th>
+          <th (click)="changeSort('task_type')">Task Type <i class="filter-icon"></i></th>
+          <th (click)="changeSort('task_time')">Time <i class="filter-icon"></i> <i class="sort-icon"></i></th>
+          <th (click)="changeSort('contact_person')">Contact Person <i class="filter-icon"></i></th>
+          <th>Notes <i class="filter-icon"></i></th>
+          <th (click)="changeSort('status')">Status <i class="filter-icon"></i> <i class="sort-icon"></i></th>
+          <th>Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="tasks.length === 0">
+          <td colspan="8" class="zero-state">
+            No tasks found.
+          </td>
+        </tr>
+        
+        <!-- Dynamic task rows with potential date grouping -->
+        <ng-container *ngFor="let task of tasks">
+          <!-- Placeholder for Date Grouping Header (requires logic in TS) -->
+          <!-- Example: <tr *ngIf="task.isDateHeader" class="date-header"><td colspan="8">{{ task.dateGroupText }}</td></tr> -->
+          
+          <tr>
+            <td>{{ formatDateTime(task.created_date, 'date') }}</td>
+            <td><a href="#" class="entity-link">{{ task.entity_name }}</a></td>
+            <td>
+              <i class="task-type-icon {{ task.task_type === 'Meeting' ? 'meeting-icon' : 'call-icon'}}"></i>
+              {{ task.task_type }}
+            </td>
+            <td>{{ formatDateTime(task.task_time, 'time') }}</td>
+            <td>{{ task.contact_person }}</td>
+            <td>
+              <ng-container *ngIf="task.note; else addNoteButton">
+                {{ task.note }}
+              </ng-container>
+              <ng-template #addNoteButton>
+                <button class="add-note-button"><i class="add-note-icon"></i> Add Note</button>
+              </ng-template>
+            </td>
+            <td>
+              <span class="status-{{ task.status }}">{{ task.status }}</span>
+            </td>
+            <td>
+              <button class="options-button">Options <span class="dropdown-arrow">▼</span></button>
+              <!-- Actual dropdown menu would be implemented here -->
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>

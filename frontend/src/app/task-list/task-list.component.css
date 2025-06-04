@@ -1,0 +1,198 @@
+.task-list-container {
+  padding: 20px;
+  font-family: sans-serif; /* Using a common sans-serif font as seen in the image */
+  color: #333; /* Dark grey text color */
+  background-color: white; /* White background for the task list block */
+  border-radius: 8px; /* Slightly rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: normal; /* Font weight looks normal in the image */
+}
+
+.new-task-button {
+  background-color: #007bff; /* Example blue color, adjust as needed */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-right: 15px; /* Space between button and search */
+}
+
+.new-task-button:hover {
+  background-color: #0056b3;
+}
+
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  padding: 8px 30px 8px 10px; /* Adjust padding for icon */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.search-icon { /* Placeholder for search icon styling */
+  position: absolute;
+  right: 10px;
+  color: #888; /* Grey color for icon */
+  pointer-events: none; /* Allow clicks to pass through to input */
+}
+
+.filter-instruction {
+  font-size: 12px;
+  color: #666; /* Lighter grey for instruction */
+  margin-bottom: 15px;
+}
+
+.filter-icon, .sort-icon {
+  margin-left: 5px;
+  color: #888; /* Grey color for icons */
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.task-table-container {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden; /* Prevents border radius issues with table */
+}
+
+.task-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.task-table thead th {
+  background-color: #f8f9fa; /* Light grey background for header */
+  text-align: left;
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+  color: #555; /* Slightly darker text for header */
+  font-weight: bold;
+}
+
+.task-table tbody td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee; /* Lighter border for rows */
+  font-size: 14px;
+  vertical-align: top; /* Align content to the top */
+}
+
+.task-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.zero-state {
+  text-align: center;
+  padding: 40px 15px; /* Generous padding for zero state */
+  color: #888; /* Grey color for zero state text */
+  font-style: italic;
+}
+
+.date-header td {
+  background-color: #e9ecef; /* Light grey background for date header */
+  font-weight: bold;
+  padding: 8px 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.entity-link {
+  color: #007bff; /* Blue color for links */
+  text-decoration: none;
+}
+
+.entity-link:hover {
+  text-decoration: underline;
+}
+
+.task-type-icon {
+  display: inline-block;
+  width: 16px; /* Example size */
+  height: 16px; /* Example size */
+  margin-right: 5px;
+  vertical-align: middle;
+  /* Placeholder background colors - replace with actual icon styles */
+}
+
+.meeting-icon {
+  background-color: blue; 
+  /* Replace with meeting icon */
+}
+
+.call-icon {
+  background-color: green;
+  /* Replace with call icon */
+}
+
+.add-note-button {
+  background-color: #e9ecef; /* Light grey button background */
+  color: #555; /* Darker grey text */
+  border: 1px solid #ced4da; /* Light grey border */
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.add-note-button:hover {
+  background-color: #dee2e6;
+}
+
+.add-note-icon {
+  /* Placeholder styling for add note icon */
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background-color: #555; /* Dark grey placeholder */
+  margin-right: 5px;
+  border-radius: 50%; /* Example style */
+}
+
+.status-open {
+  color: green; /* Example color for 'open' status */
+  font-weight: bold;
+}
+
+.status-closed {
+  color: red; /* Example color for 'closed' status */
+  font-weight: bold;
+}
+
+.options-button {
+   background-color: transparent;
+   color: #555; /* Darker grey text */
+   border: 1px solid #ced4da; /* Light grey border */
+   padding: 5px 10px;
+   border-radius: 4px;
+   cursor: pointer;
+   font-size: 12px;
+}
+
+.options-button:hover {
+    background-color: #e9ecef;
+}
+
+.dropdown-arrow {
+  margin-left: 5px;
+  font-size: 10px; /* Smaller arrow */
+}

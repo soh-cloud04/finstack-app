@@ -1,0 +1,142 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-header {
+  background-color: #0c3c60; /* Dark blue color from the image */
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap; /* Allow wrapping for responsiveness */
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.logo img {
+  height: 30px; /* Adjust as needed */
+  margin-right: 10px;
+}
+
+.logo span {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.company-dropdown button {
+  background-color: #1a527b; /* Slightly lighter blue */
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.main-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap; /* Allow navigation items to wrap */
+}
+
+.main-nav li {
+  margin-right: 20px;
+}
+
+.main-nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  padding: 10px 0; /* Add padding for clickable area */
+  display: block; /* Make the whole area clickable */
+}
+
+.main-nav a:hover {
+  text-decoration: underline;
+}
+
+.dropdown-arrow {
+  margin-left: 5px;
+  font-size: 10px; /* Smaller arrow */
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.user-info {
+  margin-right: 20px;
+  text-align: right;
+}
+
+.user-info p {
+  margin: 0;
+  font-size: 12px;
+}
+
+.header-icons .icon {
+  /* Basic styling for icons - replace with actual icon fonts or SVGs */
+  width: 20px;
+  height: 20px;
+  background-color: white; /* Placeholder color */
+  margin-left: 10px;
+  border-radius: 50%; /* Example for circular icons */
+}
+
+.app-content {
+  flex-grow: 1; /* Allow content to take up remaining space */
+  padding: 20px;
+  background-color: #f8f9fa; /* Light grey background from the image */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-left {
+    margin-bottom: 10px;
+  }
+
+  .main-nav ul {
+    flex-direction: column;
+  }
+
+  .main-nav li {
+    margin-right: 0;
+    margin-bottom: 5px;
+  }
+
+  .header-right {
+    margin-top: 10px;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .user-info {
+    margin-right: 0;
+    text-align: left;
+  }
+
+  .header-icons .icon {
+    margin-left: 0;
+    margin-right: 10px; /* Space between icons */
+  }
+}
