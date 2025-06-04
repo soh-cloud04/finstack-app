@@ -20,6 +20,7 @@ export class TaskListComponent implements OnInit {
   showNewTaskModal: boolean = false;
   showEditTaskModal: boolean = false;
   taskToEdit: Task | null = null;
+  activeOptionsDropdownId: number | null = null;
 
   constructor(private taskService: TaskService) { }
 
@@ -131,5 +132,18 @@ export class TaskListComponent implements OnInit {
       return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     }
     return date.toLocaleString();
+  }
+
+  toggleOptionsDropdown(taskId: number | undefined): void {
+    if (taskId === undefined) return;
+    if (this.activeOptionsDropdownId === taskId) {
+      this.activeOptionsDropdownId = null;
+    } else {
+      this.activeOptionsDropdownId = taskId;
+    }
+  }
+
+  closeOptionsDropdown(): void {
+    this.activeOptionsDropdownId = null;
   }
 }

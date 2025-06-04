@@ -91,7 +91,7 @@
 .task-table-container {
   border: 1px solid #ddd;
   border-radius: 4px;
-  overflow: hidden; /* Prevents border radius issues with table */
+  overflow-x: auto; /* Add horizontal scrolling if needed */
 }
 
 .task-table {
@@ -242,4 +242,38 @@
   background-position: right 8px center;
   background-size: 10px;
   padding-right: 25px; /* Make space for the arrow */
+}
+
+.options-dropdown {
+  position: absolute;
+  top: 100%; /* Position below the button */
+  right: 0; /* Align to the right of the button */
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 10; /* Increased z-index */
+  min-width: 120px;
+  padding: 5px 0;
+}
+
+.options-dropdown button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 8px 15px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+}
+
+.options-dropdown button:hover {
+  background-color: #f1f1f1;
+}
+
+/* Ensure the table cell has position: relative to position the absolute dropdown */
+.task-table tbody td:last-child {
+  position: relative;
 }

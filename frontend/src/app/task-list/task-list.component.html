@@ -80,11 +80,10 @@
               <span class="status-{{ task.status }}">{{ task.status }}</span>
             </td>
             <td>
-              <button class="options-button">Options <span class="dropdown-arrow">▼</span></button>
-              <!-- Actual dropdown menu would be implemented here -->
-              <div class="options-dropdown">
-                <button (click)="editTask(task)">Edit</button>
-                <button (click)="deleteTask(task.id)">Delete</button>
+              <button class="options-button" (click)="toggleOptionsDropdown(task.id)">Options <span class="dropdown-arrow">▼</span></button>
+              <div class="options-dropdown" *ngIf="activeOptionsDropdownId === task.id">
+                <button (click)="editTask(task); closeOptionsDropdown()">Edit</button>
+                <button (click)="deleteTask(task.id); closeOptionsDropdown()">Delete</button>
               </div>
             </td>
           </tr>
