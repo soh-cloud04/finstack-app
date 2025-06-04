@@ -1,0 +1,57 @@
+<div class="modal-backdrop" (click)="cancel()"></div>
+<div class="edit-task-modal">
+  <div class="modal-header">
+    <h3>EDIT TASK</h3>
+    <div class="status-toggle">
+      <button class="status-button" [ngClass]="{'open': status === 'open'}" (click)="toggleStatus('open')">Open</button>
+      <button class="status-button" [ngClass]="{'closed': status === 'closed'}" (click)="toggleStatus('closed')">Closed</button>
+    </div>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="entityName">Entity name</label>
+      <input type="text" id="entityName" class="form-control" [(ngModel)]="entityName" name="entityName">
+    </div>
+    <div class="form-group">
+      <label for="date">Date</label>
+      <input type="date" id="date" class="form-control date-input" [(ngModel)]="taskDate" name="taskDate">
+      <div class="time-selects">
+        <select class="form-control hour-select" [(ngModel)]="taskHour" name="taskHour">
+          <option *ngFor="let hour of hours" [value]="hour">{{ hour }}</option>
+        </select>
+        :
+        <select class="form-control minute-select" [(ngModel)]="taskMinute" name="taskMinute">
+          <option *ngFor="let minute of minutes" [value]="minute">{{ minute < 10 ? '0' + minute : minute }}</option>
+        </select>
+        <select class="form-control ampm-select" [(ngModel)]="taskAmpm" name="taskAmpm">
+          <option value="AM">AM</option>
+          <option value="PM">PM</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="taskType">Task Type</label>
+      <select id="taskType" class="form-control" [(ngModel)]="taskType" name="taskType" (change)="onTaskTypeChange()">
+        <option value="Call">Call</option>
+        <option value="Meeting">Meeting</option>
+        <!-- Add other task types if needed -->
+      </select>
+    </div>
+    <div class="form-group" *ngIf="taskType === 'Call'">
+      <label for="phoneNumber">Phone number</label>
+      <input type="text" id="phoneNumber" class="form-control" [(ngModel)]="phoneNumber" name="phoneNumber">
+    </div>
+    <div class="form-group">
+      <label for="contactPerson">Contact person</label>
+      <input type="text" id="contactPerson" class="form-control" [(ngModel)]="contactPerson" name="contactPerson">
+    </div>
+    <div class="form-group">
+      <label for="note">Note (optional)</label>
+      <textarea id="note" class="form-control" [(ngModel)]="note" name="note"></textarea>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="cancel()">CANCEL</button>
+    <button class="btn btn-primary" (click)="save()">SAVE</button>
+  </div>
+</div> 

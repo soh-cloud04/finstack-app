@@ -1,0 +1,123 @@
+.edit-task-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Deeper shadow for modal */
+  z-index: 1001; /* Ensure it's above the backdrop */
+  width: 90%; /* Responsive width */
+  max-width: 500px; /* Maximum width */
+}
+
+.edit-task-modal .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.edit-task-modal .modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.edit-task-modal .status-toggle {
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.edit-task-modal .status-button {
+  padding: 8px 15px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.edit-task-modal .status-button.open {
+  background-color: #ffc107; /* Example orange color for 'Open' */
+  color: white;
+}
+
+.edit-task-modal .status-button.closed {
+  background-color: #dc3545; /* Example red color for 'Closed' */
+  color: white;
+}
+
+.edit-task-modal .status-button:not(.open):not(.closed) {
+  background-color: transparent;
+  color: #555; /* Default text color for unselected */
+}
+
+.edit-task-modal .form-group {
+  margin-bottom: 15px;
+}
+
+.edit-task-modal .form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 12px;
+  color: #555;
+}
+
+.edit-task-modal .form-control {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.edit-task-modal .date-input {
+  width: calc(50% - 10px);
+  margin-right: 10px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.edit-task-modal .time-selects {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.edit-task-modal .time-selects select {
+  width: auto;
+  display: inline-block;
+}
+
+.edit-task-modal .modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.edit-task-modal .btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.edit-task-modal .btn-secondary {
+  background-color: #ccc;
+  color: #333;
+}
+
+.edit-task-modal .btn-primary {
+  background-color: #007bff;
+  color: white;
+} 

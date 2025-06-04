@@ -82,6 +82,10 @@
             <td>
               <button class="options-button">Options <span class="dropdown-arrow">▼</span></button>
               <!-- Actual dropdown menu would be implemented here -->
+              <div class="options-dropdown">
+                <button (click)="editTask(task)">Edit</button>
+                <button (click)="deleteTask(task.id)">Delete</button>
+              </div>
             </td>
           </tr>
         </ng-container>
@@ -94,5 +98,13 @@
 <app-new-task-modal 
   *ngIf="showNewTaskModal" 
   (closeModal)="closeNewTaskModal()"
-  (taskSaved)="onTaskSaved($event)">
+  (taskCreated)="onTaskCreated($event)">
 </app-new-task-modal>
+
+<!-- Edit Task Modal -->
+<app-edit-task-modal
+  *ngIf="showEditTaskModal && taskToEdit"
+  [taskToEdit]="taskToEdit"
+  (closeModal)="closeEditTaskModal()"
+  (taskUpdated)="onTaskUpdated($event)">
+</app-edit-task-modal>

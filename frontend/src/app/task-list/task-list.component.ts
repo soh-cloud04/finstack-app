@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TaskService, Task } from '../task.service';
 import { NewTaskModalComponent } from '../new-task-modal/new-task-modal.component';
+import { EditTaskModalComponent } from '../edit-task-modal/edit-task-modal.component';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, NewTaskModalComponent],
+  imports: [CommonModule, FormsModule, NewTaskModalComponent, EditTaskModalComponent],
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css']
 })
@@ -17,6 +18,8 @@ export class TaskListComponent implements OnInit {
   sortBy: string = 'created_date';
   sortOrder: 'asc' | 'desc' = 'desc';
   showNewTaskModal: boolean = false;
+  showEditTaskModal: boolean = false;
+  taskToEdit: Task | null = null;
 
   constructor(private taskService: TaskService) { }
 
@@ -51,21 +54,42 @@ export class TaskListComponent implements OnInit {
   }
 
   openNewTaskModal(): void {
+    this.taskToEdit = null;
     this.showNewTaskModal = true;
   }
 
   closeNewTaskModal(): void {
     this.showNewTaskModal = false;
+    this.loadTasks();
   }
 
-  onTaskSaved(savedTask: Task): void {
-    this.tasks.unshift(savedTask);
+  openEditTaskModal(task: Task): void {
+    this.taskToEdit = task;
+    this.showEditTaskModal = true;
+  }
+
+  closeEditTaskModal(): void {
+    this.showEditTaskModal = false;
+    this.taskToEdit = null;
+    this.loadTasks();
+  }
+
+  onTaskCreated(newTask: Task): void {
+    this.tasks.unshift(newTask);
     this.showNewTaskModal = false;
   }
 
+  onTaskUpdated(updatedTask: Task): void {
+    const index = this.tasks.findIndex(task => task.id === updatedTask.id);
+    if (index !== -1) {
+      this.tasks[index] = updatedTask;
+    }
+    this.showEditTaskModal = false;
+    this.taskToEdit = null;
+  }
+
   editTask(task: Task): void {
-    console.log('Edit task:', task);
-    // TODO: Implement edit modal or form
+    this.openEditTaskModal(task);
   }
 
   deleteTask(taskId: number | undefined): void {
@@ -74,39 +98,38 @@ export class TaskListComponent implements OnInit {
       this.taskService.deleteTask(taskId).subscribe({
         next: () => {
           console.log('Task deleted successfully');
-          this.loadTasks(); // Reload tasks after deletion
+          this.loadTasks();
         },
         error: (error: any) => {
           console.error('Error deleting task:', error);
-          // Handle error
         }
       });
     }
   }
 
   updateTaskStatus(task: Task, status: 'open' | 'closed'): void {
-     if (task.id === undefined) return;
-     this.taskService.updateTaskStatus(task.id, status).subscribe({
-        next: (updatedTask: Task) => {
-          console.log('Task status updated', updatedTask);
-          const index = this.tasks.findIndex(t => t.id === updatedTask.id);
-          if (index !== -1) {
-            this.tasks[index].status = updatedTask.status;
-          }
-        },
-        error: (error: any) => {
-          console.error('Error updating task status:', error);
+    if (task.id === undefined) return;
+    this.taskService.updateTaskStatus(task.id, status).subscribe({
+      next: (updatedTask: Task) => {
+        console.log('Task status updated', updatedTask);
+        const index = this.tasks.findIndex(t => t.id === updatedTask.id);
+        if (index !== -1) {
+          this.tasks[index].status = updatedTask.status;
         }
-     });
+      },
+      error: (error: any) => {
+        console.error('Error updating task status:', error);
+      }
+    });
   }
 
   formatDateTime(isoString: string, type: 'date' | 'time'): string {
     const date = new Date(isoString);
     if (type === 'date') {
-      return date.toLocaleDateString(); // Format as date (e.g., MM/dd/yyyy)
+      return date.toLocaleDateString();
     } else if (type === 'time') {
-      return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); // Format as time (e.g., HH:MM AM/PM)
+      return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     }
-    return date.toLocaleString(); // Default to full format if type is unknown
+    return date.toLocaleString();
   }
 }

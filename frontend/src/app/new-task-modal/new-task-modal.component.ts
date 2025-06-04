@@ -14,8 +14,8 @@ export class NewTaskModalComponent implements OnInit {
 
   // Output event to notify the parent component to close the modal
   @Output() closeModal = new EventEmitter<void>();
-  // Output event to notify the parent component that a task was saved (optional, could just reload)
-  @Output() taskSaved = new EventEmitter<Task>();
+  // Output event to notify the parent component that a task was saved
+  @Output() taskCreated = new EventEmitter<Task>(); // Changed event name
 
   // Properties to hold form data
   entityName: string = '';
@@ -38,6 +38,7 @@ export class NewTaskModalComponent implements OnInit {
     // Initialize hour and minute options
     this.hours = Array.from({ length: 12 }, (_, i) => i + 1);
     this.minutes = Array.from({ length: 60 }, (_, i) => i);
+    // No need to call initializeForm here as it's only for editing
   }
 
   // Method to close the modal
@@ -65,23 +66,28 @@ export class NewTaskModalComponent implements OnInit {
     const taskTime = new Date(year, month - 1, day, hour, this.taskMinute);
 
     // Create task object for the backend
-    const newTask: Omit<Task, 'id' | 'created_date' | 'status'> = {
+    const newTaskPayload: Omit<Task, 'id' | 'created_date' | 'status'> = {
       entity_name: this.entityName,
       task_type: this.taskType,
       task_time: taskTime.toISOString(),
       contact_person: this.contactPerson,
       note: this.note || undefined,
     };
-    
+
     if (this.taskType === 'Call' && !this.phoneNumber) {
       alert('Please enter a phone number for Call tasks');
       return;
     }
 
-    this.taskService.createTask(newTask).subscribe({
+    // Add phone number to payload if necessary and supported by backend
+    // if (this.taskType === 'Call') {
+    //   newTaskPayload.phoneNumber = this.phoneNumber;
+    // }
+
+    this.taskService.createTask(newTaskPayload).subscribe({
       next: (responseTask: Task) => {
         console.log('Task created successfully:', responseTask);
-        this.taskSaved.emit(responseTask); // Emit the saved task
+        this.taskCreated.emit(responseTask); // Emit the created task
         this.closeModal.emit(); // Close modal after saving
       },
       error: (error: any) => {
