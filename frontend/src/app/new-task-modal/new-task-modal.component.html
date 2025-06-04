@@ -1,0 +1,51 @@
+<div class="modal-backdrop" (click)="cancel()"></div>
+<div class="new-task-modal">
+  <div class="modal-header">
+    <h3>NEW TASK</h3>
+    <div class="status-toggle">
+      <button class="status-button" [ngClass]="{'open': status === 'open'}" (click)="toggleStatus('open')">Open</button>
+      <button class="status-button" [ngClass]="{'closed': status === 'closed'}" (click)="toggleStatus('closed')">Closed</button>
+    </div>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="entityName">Entity name</label>
+      <input type="text" id="entityName" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="date">Date</label>
+      <input type="date" id="date" class="form-control date-input">
+      <div class="time-selects">
+        <select class="form-control hour-select"></select>
+        :
+        <select class="form-control minute-select"></select>
+        <select class="form-control ampm-select"></select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="taskType">Task Type</label>
+      <select id="taskType" class="form-control">
+        <option value="Call">Call</option>
+        <option value="Meeting">Meeting</option>
+        <!-- Add other task types if needed -->
+      </select>
+    </div>
+    <!-- Phone number field appears based on Task Type - will need conditional display -->
+    <div class="form-group">
+      <label for="phoneNumber">Phone number</label>
+      <input type="text" id="phoneNumber" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="contactPerson">Contact person</label>
+      <input type="text" id="contactPerson" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="note">Note (optional)</label>
+      <textarea id="note" class="form-control"></textarea>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="cancel()">CANCEL</button>
+    <button class="btn btn-primary" (click)="save()">SAVE</button>
+  </div>
+</div> 

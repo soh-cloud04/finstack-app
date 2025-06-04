@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskService, Task } from '../task.service';
+import { NewTaskModalComponent } from '../new-task-modal/new-task-modal.component';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NewTaskModalComponent],
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css']
 })
@@ -14,6 +15,7 @@ export class TaskListComponent implements OnInit {
   filters: any = {};
   sortBy: string = 'created_date';
   sortOrder: 'asc' | 'desc' = 'desc';
+  showNewTaskModal: boolean = false;
 
   constructor(private taskService: TaskService) { }
 
@@ -23,14 +25,14 @@ export class TaskListComponent implements OnInit {
 
   loadTasks(): void {
     this.taskService.getTasks(this.filters, this.sortBy, this.sortOrder)
-      .subscribe(
-        (data) => {
+      .subscribe({
+        next: (data: Task[]) => {
           this.tasks = data;
         },
-        (error) => {
+        error: (error: any) => {
           console.error('Error fetching tasks:', error);
         }
-      );
+      });
   }
 
   applyFilters(): void {
@@ -48,7 +50,12 @@ export class TaskListComponent implements OnInit {
   }
 
   openNewTaskModal(): void {
-    console.log('Open new task modal');
+    this.showNewTaskModal = true;
+  }
+
+  closeNewTaskModal(): void {
+    this.showNewTaskModal = false;
+    this.loadTasks();
   }
 
   editTask(task: Task): void {
@@ -58,32 +65,32 @@ export class TaskListComponent implements OnInit {
   deleteTask(taskId: number | undefined): void {
     if (taskId === undefined) return;
     if (confirm('Are you sure you want to delete this task?')) {
-      this.taskService.deleteTask(taskId).subscribe(
-        () => {
+      this.taskService.deleteTask(taskId).subscribe({
+        next: () => {
           console.log('Task deleted successfully');
           this.loadTasks();
         },
-        (error) => {
+        error: (error: any) => {
           console.error('Error deleting task:', error);
         }
-      );
+      });
     }
   }
 
   updateTaskStatus(task: Task, status: 'open' | 'closed'): void {
      if (task.id === undefined) return;
-     this.taskService.updateTaskStatus(task.id, status).subscribe(
-        (updatedTask) => {
+     this.taskService.updateTaskStatus(task.id, status).subscribe({
+        next: (updatedTask: Task) => {
           console.log('Task status updated', updatedTask);
           const index = this.tasks.findIndex(t => t.id === updatedTask.id);
           if (index !== -1) {
             this.tasks[index].status = updatedTask.status;
           }
         },
-        (error) => {
+        error: (error: any) => {
           console.error('Error updating task status:', error);
         }
-     );
+     });
   }
 
   formatDateTime(isoString: string, type: 'date' | 'time'): string {
