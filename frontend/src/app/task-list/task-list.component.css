@@ -21,18 +21,38 @@
 }
 
 .new-task-button {
-  background-color: #007bff; /* Example blue color, adjust as needed */
+  background-color: #4CAF50;  /* Green color */
   color: white;
   border: none;
-  padding: 10px 15px;
+  padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
-  margin-right: 15px; /* Space between button and search */
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
 }
 
 .new-task-button:hover {
-  background-color: #0056b3;
+  background-color: #45a049;  /* Slightly darker green on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+.new-task-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Add a plus icon using pseudo-element */
+.new-task-button::before {
+  content: '+';
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1;
 }
 
 .search-container {
@@ -195,4 +215,31 @@
 .dropdown-arrow {
   margin-left: 5px;
   font-size: 10px; /* Smaller arrow */
+}
+
+.filter-row td {
+  padding: 8px 15px;
+  background-color: #f1f1f1; /* Light grey background for filter row */
+  border-bottom: 1px solid #ddd;
+}
+
+.filter-row input[type="text"], 
+.filter-row input[type="date"], 
+.filter-row input[type="time"],
+.filter-row select {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 12px;
+  box-sizing: border-box;
+}
+
+.filter-row select {
+  appearance: none; /* Remove default dropdown arrow */
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.362%22%20height%3D%22292.362%22%3E%3Cpath%20fill%3D%22%23007bff%22%20d%3D%22M287.087%20197.94c4.345-4.343%206.442-9.601%206.442-15.698%200-6.099-2.098-11.356-6.442-15.699L153.363%2031.443c-4.344-4.343-9.603-6.441-15.699-6.441-6.099%200-11.356%202.098-15.699%206.441L6.441%20166.543c-4.343%204.343-6.441%209.601-6.441%2015.698%200%206.099%202.098%2011.356%206.441%2015.699l15.699%2015.698c4.344%204.343%209.602%206.441%2015.699%206.441s11.355-2.098%2015.699-6.441L137.664%20126.04c4.343-4.344%209.602-6.442%2015.699-6.442s11.357%202.098%2015.699%206.442l105.62%20105.618c4.344%204.344%209.602%206.442%2015.699%206.442%206.097%200%2011.354-2.098%2015.698-6.442l15.7-15.698z%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 10px;
+  padding-right: 25px; /* Make space for the arrow */
 }

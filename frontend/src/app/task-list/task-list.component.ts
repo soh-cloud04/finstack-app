@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { TaskService, Task } from '../task.service';
 import { NewTaskModalComponent } from '../new-task-modal/new-task-modal.component';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule, NewTaskModalComponent],
+  imports: [CommonModule, FormsModule, NewTaskModalComponent],
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css']
 })
@@ -55,11 +56,16 @@ export class TaskListComponent implements OnInit {
 
   closeNewTaskModal(): void {
     this.showNewTaskModal = false;
-    this.loadTasks();
+  }
+
+  onTaskSaved(savedTask: Task): void {
+    this.tasks.unshift(savedTask);
+    this.showNewTaskModal = false;
   }
 
   editTask(task: Task): void {
     console.log('Edit task:', task);
+    // TODO: Implement edit modal or form
   }
 
   deleteTask(taskId: number | undefined): void {
@@ -68,10 +74,11 @@ export class TaskListComponent implements OnInit {
       this.taskService.deleteTask(taskId).subscribe({
         next: () => {
           console.log('Task deleted successfully');
-          this.loadTasks();
+          this.loadTasks(); // Reload tasks after deletion
         },
         error: (error: any) => {
           console.error('Error deleting task:', error);
+          // Handle error
         }
       });
     }

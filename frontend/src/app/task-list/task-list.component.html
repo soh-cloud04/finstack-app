@@ -1,7 +1,7 @@
 <div class="task-list-container">
   <div class="header">
     <h2>SALES LOG</h2>
-    <button class="new-task-button" (click)="openNewTaskModal()">+ New Task</button>
+    <button class="new-task-button" (click)="openNewTaskModal()">New Task</button>
     <div class="search-container">
       <input type="text" placeholder="Search" class="search-input">
       <i class="search-icon"></i> <!-- Placeholder for search icon -->
@@ -22,6 +22,29 @@
           <th>Notes <i class="filter-icon"></i></th>
           <th (click)="changeSort('status')">Status <i class="filter-icon"></i> <i class="sort-icon"></i></th>
           <th>Options</th>
+        </tr>
+        <tr class="filter-row">
+          <td><input type="date" [(ngModel)]="filters.created_date" (change)="applyFilters()"></td>
+          <td><input type="text" [(ngModel)]="filters.entity_name" (input)="applyFilters()"></td>
+          <td>
+            <select [(ngModel)]="filters.task_type" (change)="applyFilters()">
+              <option value="">All</option>
+              <option value="Call">Call</option>
+              <option value="Meeting">Meeting</option>
+              <!-- Add other task types as needed -->
+            </select>
+          </td>
+          <td><input type="time" [(ngModel)]="filters.task_time" (change)="applyFilters()"></td>
+          <td><input type="text" [(ngModel)]="filters.contact_person" (input)="applyFilters()"></td>
+          <td><input type="text" [(ngModel)]="filters.note" (input)="applyFilters()"></td>
+          <td>
+            <select [(ngModel)]="filters.status" (change)="applyFilters()">
+              <option value="">All</option>
+              <option value="open">Open</option>
+              <option value="closed">Closed</option>
+            </select>
+          </td>
+          <td></td> <!-- Empty cell for Options column -->
         </tr>
       </thead>
       <tbody>
@@ -68,4 +91,8 @@
 </div>
 
 <!-- New Task Modal -->
-<app-new-task-modal *ngIf="showNewTaskModal" (closeModal)="closeNewTaskModal()"></app-new-task-modal>
+<app-new-task-modal 
+  *ngIf="showNewTaskModal" 
+  (closeModal)="closeNewTaskModal()"
+  (taskSaved)="onTaskSaved($event)">
+</app-new-task-modal>
